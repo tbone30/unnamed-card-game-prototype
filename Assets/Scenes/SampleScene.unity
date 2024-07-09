@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6135197506245462298, guid: 25b35e9b11f1d20478c3b549c20abb20, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: fe6a1b644caa13545be99de67a2625d7, type: 2}
     - target: {fileID: 7177782289073097125, guid: 25b35e9b11f1d20478c3b549c20abb20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

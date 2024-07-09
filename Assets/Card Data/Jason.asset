@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Jason
   m_EditorClassIdentifier: 
   cardName: Jason
-  cardType: 03000000
+  cardType: 0300000005000000
   health: 5
   damageMin: 3
   damageMax: 6
-  damageType: 03000000
+  damageType: 0300000005000000
+  cardSprite: {fileID: 0}
