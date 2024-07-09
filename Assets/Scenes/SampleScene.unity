@@ -379,13 +379,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e21fc79346a6a84594fb2cd5246a842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckManager: {fileID: 0}
+  deckManager: {fileID: 190727368}
   cardPrefab: {fileID: 3679295075356783484, guid: 25b35e9b11f1d20478c3b549c20abb20, type: 3}
   handTransform: {fileID: 1328863916}
   fanSpread: -7.5
   cardSpacing: 150
   verticalSpacing: 100
   cardsInHand: []
+  maxHandSize: 10
 --- !u!1 &1328863915
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +474,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 256
   m_ScaleFactor: 256
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96

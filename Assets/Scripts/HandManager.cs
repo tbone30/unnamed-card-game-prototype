@@ -12,6 +12,7 @@ public class HandManager : MonoBehaviour
     public float cardSpacing = 150f; //How much space is between cards
     public float verticalSpacing = 100f; //How much space is between cards
     public List<GameObject> cardsInHand = new List<GameObject>(); //Holds list of the card objects currently in hand
+    public int startingHandSize = 5; //Number of cards to start with
     public int maxHandSize = 10; //Maximum number of cards that can be held in hand
     
     // Start is called before the first frame update
@@ -40,7 +41,7 @@ public class HandManager : MonoBehaviour
 
     void Update()
     {
-        UpdateHandVisuals();
+        //UpdateHandVisuals();
     }
 
     private void UpdateHandVisuals()
