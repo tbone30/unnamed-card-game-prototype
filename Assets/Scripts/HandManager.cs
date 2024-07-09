@@ -8,10 +8,11 @@ public class HandManager : MonoBehaviour
     public DeckManager deckManager; //Reference to the deck manager
     public GameObject cardPrefab; //Assign card prefab in inspector
     public Transform handTransform; //Root of the hand position
-    public float fanSpread = 7.5f; //How spread out the hand is
-    public float cardSpacing = -100f; //How much space is between cards
+    public float fanSpread = -7.5f; //How spread out the hand is
+    public float cardSpacing = 150f; //How much space is between cards
     public float verticalSpacing = 100f; //How much space is between cards
     public List<GameObject> cardsInHand = new List<GameObject>(); //Holds list of the card objects currently in hand
+    public int maxHandSize = 10; //Maximum number of cards that can be held in hand
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,12 @@ public class HandManager : MonoBehaviour
 
     public void AddCardToHand(Card cardData)
     {
+        //Do not add card if hand is full
+        if(cardsInHand.Count >= maxHandSize)
+        {
+            return;
+        }
+
         //Instantiate a new card object
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
         cardsInHand.Add(newCard); //Add the new card to the list of cards in hand
