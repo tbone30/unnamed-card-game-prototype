@@ -14,7 +14,7 @@ namespace tbone
         public int damageMin;
         public int damageMax;
         public List<DamageType> damageType;
-
+        public Sprite cardSprite;
         public enum CardType
         {
             Fire,
