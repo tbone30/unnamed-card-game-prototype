@@ -850,6 +850,7 @@ MonoBehaviour:
   playPosition: {x: -700, y: 500, z: 0}
   glowEffect: {fileID: 5656272876807947474}
   playArrow: {fileID: 3808347915536432262}
+  lerpFactor: 0.1
 --- !u!1 &3808347915536432262
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5553248471789054537}
+  - component: {fileID: 5424347673397867114}
   m_Layer: 0
   m_Name: PlayArrow
   m_TagString: Untagged
@@ -885,6 +887,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5424347673397867114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808347915536432262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5792865623848479d6407d8355357d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 1774252676916323983, guid: 1d6615cdb7c210e42bb77b4afc21c927, type: 3}
+  dotPrefab: {fileID: 5992612457801613879, guid: 5f3c2fcb61bba83409bf21d56ab22a99, type: 3}
+  poolSize: 50
+  spacing: 40
+  arrowAngleAdjustment: 180
+  dotsToSkip: 2
 --- !u!1 &4341687309051803620
 GameObject:
   m_ObjectHideFlags: 0
