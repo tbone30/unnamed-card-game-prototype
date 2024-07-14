@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using tbone;
+using UnityEngine.UI;
 
 public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform rectTransform;
     private Canvas canvas;
-    private Vector2 originalLocalPointerPosition;
-    private Vector3 originalPanelLocalPosition;
+    private RectTransform canvasRectTranform;
     private Vector3 originalScale;
-    private int currentState = 0; //default state is zero, card is idle and not selected
+    private int currentState = 0;
     private Quaternion originalRotation;
     private Vector3 originalPosition;
 
@@ -20,19 +17,46 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private Vector3 playPosition;
     [SerializeField] private GameObject glowEffect;
     [SerializeField] private GameObject playArrow;
-    [SerializeField] private float lerpFactor = 0.1f; // New variable to control drag sensitivity
+    [SerializeField] private float lerpFactor = 0.1f;
+    [SerializeField] private int cardPlayDivider = 4;
+    [SerializeField] private float cardPlayMultiplier = 1f;
+    [SerializeField] private bool needUpdateCardPlayPosition = false;
+    [SerializeField] private int playPositionYDivider = 2;
+    [SerializeField] private float playPositionYMultiplier = 1f;
+    [SerializeField] private int playPositionXDivider = 4;
+    [SerializeField] private float playPositionXMultiplier = 1f;
+    [SerializeField] private bool needUpdatePlayPosition = false;
 
-    void Awake() 
+    void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+
+        if (canvas != null)
+        {
+            canvasRectTranform = canvas.GetComponent<RectTransform>();
+        }
+
         originalScale = rectTransform.localScale;
-        originalRotation = rectTransform.localRotation;
         originalPosition = rectTransform.localPosition;
+        originalRotation = rectTransform.localRotation;
+
+        updateCardPlayPostion();
+        updatePlayPostion();
     }
 
     void Update()
     {
+        if (needUpdateCardPlayPosition)
+        {
+            updateCardPlayPostion();
+        }
+
+        if (needUpdatePlayPosition)
+        {
+            updatePlayPostion();
+        }
+        
         switch (currentState)
         {
             case 1:
@@ -40,14 +64,14 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 break;
             case 2:
                 HandleDragState();
-                if(!Input.GetMouseButton(0)) //if mouse button is released
+                if (!Input.GetMouseButton(0)) //Check if mouse button is released
                 {
                     TransitionToState0();
                 }
                 break;
             case 3:
                 HandlePlayState();
-                if(!Input.GetMouseButton(0)) //if mouse button is released
+                if (!Input.GetMouseButton(0)) //Check if mouse button is released
                 {
                     TransitionToState0();
                 }
@@ -57,20 +81,18 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     private void TransitionToState0()
     {
-        //reset states to default and original position, disable visual effects
         currentState = 0;
-        rectTransform.localScale = originalScale;
-        rectTransform.localRotation = originalRotation;
-        rectTransform.localPosition = originalPosition;
-        glowEffect.SetActive(false);
-        playArrow.SetActive(false);
+        rectTransform.localScale = originalScale; //Reset Scale
+        rectTransform.localRotation = originalRotation; //Reset Rotation
+        rectTransform.localPosition = originalPosition; //Reset Position
+        glowEffect.SetActive(false); //Disable glow effect
+        playArrow.SetActive(false); //Disable playArrow
     }
 
-    public void OnPointerEnter(PointerEventData eventData) //enter hover state
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if(currentState == 0)
+        if (currentState == 0)
         {
-            //make sure the state of the card is tracked before switching states
             originalPosition = rectTransform.localPosition;
             originalRotation = rectTransform.localRotation;
             originalScale = rectTransform.localScale;
@@ -79,63 +101,79 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
     }
 
-    public void OnPointerExit(PointerEventData eventData) //exit hover state
+    public void OnPointerExit(PointerEventData eventData)
     {
-        if(currentState == 1)
+        if (currentState == 1)
         {
             TransitionToState0();
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData) //enter drag state
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if(currentState == 1)
+        if (currentState == 1)
         {
             currentState = 2;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out originalLocalPointerPosition);
-            originalPanelLocalPosition = rectTransform.localPosition;
         }
     }
 
-   public void OnDrag(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData)
     {
-        if(currentState == 2)
+        if (currentState == 2)
         {
-            Vector2 localPointerPosition;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localPointerPosition))
+            if (Input.mousePosition.y > cardPlay.y)
             {
-                rectTransform.position = Vector3.Lerp(rectTransform.position, Input.mousePosition, lerpFactor); //drag card to mouse position delayed
-
-                if(rectTransform.localPosition.y > cardPlay.y) //if card is dragged beyond the play area barrier
-                {
-                    currentState = 3;
-                    playArrow.SetActive(true);
-                    rectTransform.localPosition = Vector3.Lerp(rectTransform.localPosition, playPosition, lerpFactor);
-                }
+                currentState = 3;
+                playArrow.SetActive(true);
+                rectTransform.localPosition = Vector3.Lerp(rectTransform.position, playPosition, lerpFactor);
             }
         }
     }
 
-    private void HandleHoverState() //hover state is 1
+    private void HandleHoverState()
     {
         glowEffect.SetActive(true);
         rectTransform.localScale = originalScale * selectScale;
     }
 
-    private void HandleDragState() //drag state is 2
+    private void HandleDragState()
     {
-        rectTransform.localRotation = Quaternion.identity; // set rotation to 0
-    }  
+        //Set the card's rotation to zero
+        rectTransform.localRotation = Quaternion.identity;
+        rectTransform.position = Vector3.Lerp(rectTransform.position, Input.mousePosition, lerpFactor);
+    }
 
-    private void HandlePlayState() //play state is 3
+    private void HandlePlayState()
     {
         rectTransform.localPosition = playPosition;
-        rectTransform.localRotation = Quaternion.identity; // set rotation to 0
+        rectTransform.localRotation = Quaternion.identity;
 
-        if(Input.mousePosition.y < cardPlay.y) //if card is dragged back to the hand
+        if (Input.mousePosition.y < cardPlay.y)
         {
             currentState = 2;
             playArrow.SetActive(false);
+        }
+    }
+
+    private void updateCardPlayPostion()
+    {
+        if (cardPlayDivider != 0 && canvasRectTranform != null)
+        {
+            float segment = cardPlayMultiplier / cardPlayDivider;
+
+            cardPlay.y = canvasRectTranform.rect.height * segment;
+        }
+    }
+
+    private void updatePlayPostion()
+    {
+        if (canvasRectTranform != null && playPositionYDivider != 0 && playPositionXDivider != 0)
+        {
+            float segmentX = playPositionXMultiplier / playPositionXDivider;
+            float segmentY = playPositionYMultiplier / playPositionYDivider;
+
+            playPosition.x = canvasRectTranform.rect.width * segmentX;
+            playPosition.y = canvasRectTranform.rect.height * segmentY;
         }
     }
 }
