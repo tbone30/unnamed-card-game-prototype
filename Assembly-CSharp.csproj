@@ -66,10 +66,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CardDisplay.cs" />
     <Compile Include="Assets\Scripts\CardMovement.cs" />
+    <Compile Include="Assets\Scripts\OptionsManager.cs" />
     <Compile Include="Assets\Scripts\DeckManager.cs" />
     <Compile Include="Assets\Scripts\ArcRenderer.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HandManager.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\PositionObject.cs" />
     <Compile Include="Assets\Scripts\UIPositionObject.cs" />
     <Compile Include="Assets\Scripts\DragUIObject.cs" />

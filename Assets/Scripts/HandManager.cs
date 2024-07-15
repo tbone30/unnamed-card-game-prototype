@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SinuousProductions;
+using tbone;
 using System;
 
 public class HandManager : MonoBehaviour
 {
-    public DeckManager deckManager;
     public GameObject cardPrefab; //Assign card prefab in inspector
     public Transform handTransform; //Root of the hand position
     public float fanSpread = 7.5f;
