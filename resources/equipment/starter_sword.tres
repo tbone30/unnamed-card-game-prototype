@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EquipmentResource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/data/equipment_resource.gd" id="1_er"]
+[ext_resource type="Resource" path="res://resources/card_packages/starter_weapon_package.tres" id="2_pkg"]
+
+[resource]
+script = ExtResource("1_er")
+item_name = "Starter Sword"
+slot = 0
+card_package = ExtResource("2_pkg")

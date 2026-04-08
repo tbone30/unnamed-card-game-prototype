@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/data/card_definition.gd" id="1_cd"]
+[ext_resource type="Script" path="res://src/data/card_effect.gd" id="2_ce"]
+
+[sub_resource type="Resource" id="CardEffect_1"]
+script = ExtResource("2_ce")
+type = 1
+value = 5
+target_self = true
+status_id = &""
+
+[resource]
+script = ExtResource("1_cd")
+card_name = "Guard"
+energy_cost = 1
+description = "Gain 5 block."
+effects = [SubResource("CardEffect_1")]
+exhaust = false

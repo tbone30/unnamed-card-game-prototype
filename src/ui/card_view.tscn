@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/ui/card_view.gd" id="1_cv1"]
+
+[node name="CardView" type="Panel"]
+custom_minimum_size = Vector2(180, 260)
+script = ExtResource("1_cv1")
+
+[node name="CardNameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 40.0
+grow_horizontal = 2
+text = "Card"
