@@ -1,5 +1,4 @@
 extends Node
-class_name EquipmentManager
 
 signal equipment_changed(slot: EquipmentSlot.SlotType, item: EquipmentResource)
 

@@ -3,7 +3,7 @@ class_name CombatManager
 
 signal combat_ended(player_won: bool)
 signal turn_started(is_player_turn: bool)
-signal combatant_stat_changed(combatant: Combatant, stat: String, new_value: int)
+signal combatant_stat_changed(combatant, stat: String, new_value: int)
 
 const HAND_SIZE: int = 5
 

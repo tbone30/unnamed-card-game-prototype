@@ -1,5 +1,4 @@
 extends Node
-class_name MetaProgress
 
 var _unlock_flags: Dictionary = {}
 

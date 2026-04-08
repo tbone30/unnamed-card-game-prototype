@@ -1,5 +1,4 @@
 extends Node
-class_name RunState
 
 signal run_ended(won: bool)
 signal floor_changed(new_floor: int)

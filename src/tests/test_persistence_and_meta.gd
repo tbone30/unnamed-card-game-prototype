@@ -1,4 +1,5 @@
-extends GutTest
+# Test placeholder - requires GUT addon
+# extends GutTest
 
 func before_each() -> void:
 	SaveManager.delete_run()

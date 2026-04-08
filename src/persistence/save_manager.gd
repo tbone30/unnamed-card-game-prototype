@@ -1,5 +1,4 @@
 extends Node
-class_name SaveManager
 
 const SAVE_VERSION: int = 1
 const RUN_SAVE_PATH: String = "user://run_save.json"
@@ -8,7 +7,7 @@ func save_run() -> void:
 	var equipped: Dictionary = {}
 	for slot in EquipmentSlot.ALL_SLOTS:
 		var item: EquipmentResource = EquipmentManager.get_equipped(slot)
-		equipped[String(slot)] = item.resource_path if item != null else ""
+		equipped[str(slot)] = item.resource_path if item != null else ""
 
 	var payload: Dictionary = {
 		"version": SAVE_VERSION,
@@ -61,7 +60,7 @@ func load_run() -> bool:
 	EquipmentManager.clear_all()
 	var equipped: Dictionary = payload.get("equipment", {})
 	for slot in EquipmentSlot.ALL_SLOTS:
-		var item_path: String = String(equipped.get(String(slot), ""))
+		var item_path: String = str(equipped.get(str(slot), ""))
 		if item_path == "":
 			continue
 		var item: EquipmentResource = load(item_path)
